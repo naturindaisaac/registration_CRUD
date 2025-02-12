@@ -1,13 +1,11 @@
 import express from 'express'
-import { connectionToDatabase } from '../db/db.js'
-
-
+import {connectToDatabase} from '../db/db.js'
 import bcrypt from 'bcrypt'
 const router=express.Router()
-router.post('/register', async(req, res)=>{
-    const{surname, othername, DOB,    email, password}=req.body;
+router.post('/Register', async (req, res)=>{
+    const{surname, othername, DOB, email, password} = req.body;
     try{
-        const db=await connectionToDatabase()
+        const db=await connectToDatabase()
         const [rows]= await db.query('SELECT* FROM users WHERE email=?',[email])
         if (rows.length > 0)
         {
